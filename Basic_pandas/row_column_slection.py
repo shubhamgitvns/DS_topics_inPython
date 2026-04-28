@@ -12,5 +12,12 @@ data = {
 
 # Creating the DataFrame
 books_df = pd.DataFrame(data)
-print(books_df)
-books_df.to_csv("Test data.csv",index=False)
+# print(books_df)
+
+# select the colun 
+select_column =books_df[['Title','Price']]
+print(select_column)
+
+# select the row
+select_row = books_df.loc[books_df.Title == 'Book1']
+print(select_row)
