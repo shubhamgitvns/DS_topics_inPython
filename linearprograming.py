@@ -1,5 +1,6 @@
+import numpy as np
 x=[1,2,3,4]
-y=[2,4,6,8]
+y=[4,6,8,10]
 n= len(x)
 cx=0
 cy = 0
@@ -14,5 +15,7 @@ for i in range(len(x)):
 
 b = (n * sigmaXY - cx * cy) / (n * sigmaX2 - cx * cx)
 a= (cy-b*cx) / n
-print(f"a={a}")
-print(f"b={b}")
+# print(f"a={a}")
+# print(f"b={b}")
+ppf= np.polyfit(x,y,1)
+print(ppf)
