@@ -16,8 +16,13 @@ books_df = pd.DataFrame(data)
 
 # select the colun 
 select_column =books_df[['Title','Price']]
-print(select_column)
+# print(select_column)
 
 # select the row
-select_row = books_df.loc[books_df.Title == 'Book1']
+print("Differenece Between loc and iloc")
+select_row = books_df.loc[0:2] # loc = labels of index
 print(select_row)
+print("-----------------\n")
+select_index = books_df.iloc[0:2] # iloc- index of loc
+print(select_index)
+
