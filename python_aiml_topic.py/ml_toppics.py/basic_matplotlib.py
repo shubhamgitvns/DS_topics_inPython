@@ -5,9 +5,12 @@ import numpy as np
 # Generate some data for the plot
 x = np.linspace(0, 10, 100)  # Create an array of 100 evenly spaced points between 0 and 10
 
-# Sin and Cos value
 y_sin = np.sin(x)  # Calculate the sine of each x value
-y_cos = np.cos(x)
+
+y_cos = np.cos(x) # Calulate the cos of each x value
+
+# y_tan = np.tan(x)
+
 
 
 
@@ -17,10 +20,13 @@ fig, ax = plt.subplots()
 
 # Plot the data as a line with red color, solid line style, and a linewidth of 2
 ax.plot(x, y_sin, color='red', linestyle='--', linewidth=2)
+
 ax.plot(x,y_cos, color='blue', linestyle="-",linewidth=2)
 
+# ax.plot(x,y_tan,color='green', linestyle="-", linewidth=2)
+
 # Set the title, x-axis label, and y-axis label
-ax.set_title('Sine and Cosin Wave')  # Set the title of the plot
+ax.set_title('Sine and Cosin  Wave')  # Set the title of the plot
 ax.set_xlabel('X-axis')  # Set the label for the x-axis
 ax.set_ylabel('Y-axis')  # Set the label for the y-axis
 
