@@ -7,7 +7,7 @@ import pandas as pd
 data = {
     'Title': ['Book1', 'Book2', 'Book3', 'Book4',"book5"],
     'Publication_Year': [1945, 1955, 1960, 2000, 2002],
-    'Price':[10, 25, 15, 8,100]
+    'Price':[10, 25, 15, 8, 100]
 }
 
 # Creating the DataFrame

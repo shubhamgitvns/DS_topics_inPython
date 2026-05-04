@@ -19,6 +19,6 @@ books_df.loc[0, 'Price']= 150
 print(books_df)
 
 # Delete the value
-delete_book = books_df.drop(books_df[books_df.Price == 89].index) 
-# delete_book = books_df.drop('Discount', axis =1)
+delete_book = books_df.drop(books_df[books_df.Price == 89].index) # remove row
+delete_book = books_df.drop('Discount', axis =1) # remove column
 print(delete_book)
