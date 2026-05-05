@@ -2,21 +2,12 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv('hollywood_movies_sample.csv')
-df.loc[df.title == 'Sky Warriors', 'budget_million'] = np.nan
-
-
 print(df)
-# print(df.info())
 
-# Basic statistics
-# print(df.describe())
+df["profit_million"] = df["revenue_million"] - df["budget_million"]
 
-# Check missing values
-# print(df.isnull().sum())
+df["success"] = df["profit_million"].apply(
+    lambda x: 1 if x > 0 else 0
+)
 
-# List all genres
-print('unoque data')
-print(df["genre"].unique())
-
-print('duplicates')
-print(df["budget_million"].value_counts())
+print(df[["title", "profit_million", "success"]])
