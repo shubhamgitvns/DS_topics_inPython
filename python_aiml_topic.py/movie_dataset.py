@@ -2,9 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-
-
 df = pd.read_csv('hollywood_movies_sample.csv')
 
 df["profit_million"] = df["revenue_million"] - df["budget_million"]
@@ -14,6 +11,7 @@ df["success"] = df["profit_million"].apply(
 )
 
 # print(df[["title", "profit_million", "success"]])
+
 
 genre_profit = df.groupby("genre")["profit_million"].mean()
 
@@ -53,7 +51,7 @@ print(df.nlargest(1,'profit_million')[['genre', 'profit_million']])
 # plt.grid()
 # plt.show()
 
-#  7 Q:
+#  7 Q:Build a hit/flop prediction model.
 df["profit_per"] = df["profit_million"] / df["budget_million"]*100
 df["result"] = df["profit_per"].apply(
     lambda x: 'flop' if x <= 0 else ('Hit' if x<=500 else 'Superhit')

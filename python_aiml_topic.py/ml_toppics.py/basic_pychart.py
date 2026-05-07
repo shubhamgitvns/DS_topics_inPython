@@ -11,6 +11,7 @@ sizes2 = np.random.randint(1, 50, 5)
 
 # Create a figure with two subplots
 fig, (ax1, ax2) = plt.subplots(1, 2)
+print(sizes1)
 
 # Create the first pie chart
 ax1.pie(sizes1, labels=labels1, autopct='%1.1f%%', startangle=90)
