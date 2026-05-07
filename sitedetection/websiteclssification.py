@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 import nltk
 
 from nltk.corpus import stopwords
@@ -82,7 +83,7 @@ print("\nTotal Food Matches =", total_food_count)
 
 print("Total Movie Matches =", total_movie_count)
 
-# step- 7 Final classification
+# step-7 Final classification
 if total_food_count > total_movie_count:
     print("\nParagraph is FOOD related")
 
@@ -91,3 +92,16 @@ elif total_movie_count > total_food_count:
 
 else:
     print("\nParagraph is MIXED or UNKNOWN")
+
+# step-8 Show the result in graph
+category = ['food','moovie']
+count = [total_food_count, total_movie_count]
+plt.bar(category,count, color = ['green','orange'])
+plt.title("Paragraph Classification")
+
+plt.xlabel("Category")
+plt.ylabel("Match Count")
+
+plt.grid(axis='y')
+
+plt.show()
