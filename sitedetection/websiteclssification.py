@@ -103,5 +103,4 @@ plt.xlabel("Category")
 plt.ylabel("Match Count")
 
 plt.grid(axis='y')
-
 plt.show()
