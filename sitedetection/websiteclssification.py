@@ -55,15 +55,21 @@ print("Filtered words:")
 print(filter_data)
 
 # Total counts
+food_name = []
 total_food_count = 0
-total_movie_count = 0
 
+movie_name=[]
+total_movie_count = 0
+names=[]
+colors =[]
+total_counts = []
 # step-5 Compaire the result
 print("\nMatching Results:\n")
 
 for item in filter_data:
 
     food_count = (df["food"] == item).sum()
+
 
     movie_count = (df["movie"] == item).sum()
 
@@ -73,11 +79,22 @@ for item in filter_data:
 
     # print only matched words
     if food_count > 0:
+        names.append(item)
+        total_counts.append(food_count)
+        food_name.append(item)
         print(item, "=> Food Match =", food_count)
+        colors.append('green')
 
     if movie_count > 0:
+        names.append(item)
+        total_counts.append(movie_count)
+        movie_name.append(item)
         print(item, "=> Movie Match =", movie_count)
+        colors.append('orange')
 
+
+print(food_name)
+print(movie_name)
 # step-6  Final totals
 print("\nTotal Food Matches =", total_food_count)
 
@@ -94,13 +111,11 @@ else:
     print("\nParagraph is MIXED or UNKNOWN")
 
 # step-8 Show the result in graph
-category = ['food','moovie']
-count = [total_food_count, total_movie_count]
-plt.bar(category,count, color = ['green','orange'])
-plt.title("Paragraph Classification")
 
+bars = plt.bar(names,total_counts, color = colors)
+
+
+plt.title("Website Classification")
 plt.xlabel("Category")
 plt.ylabel("Match Count")
-
-plt.grid(axis='y')
 plt.show()
