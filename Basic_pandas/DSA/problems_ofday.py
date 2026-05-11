@@ -8,31 +8,30 @@
 # Q Write a Python function remove_duplicates(arr) that returns a new list with duplicate values removed.
 # Q Write a Python function second_largest(arr) that returns the second largest unique number in the list.
 # Q Write a Python function is_sorted(arr) that returns True if the list is sorted in non-decreasing order.
-
 # Q Write a Python function count_vowels(s) that returns the number of vowels in the string.
 
 
 def sum_list():
     arr=[2,4,6,8]
     sum = 0
-    for i in range(len(arr)):
-        sum += arr[i]
+    for i in arr:
+        sum += i
     return sum
 
 def  smallet_num():
     arr = [2,4,3,1,9,-1,0]
     min = arr[0]
-    for i in range(len(arr)):
-        if arr[i] < min:
-            min = arr[i]
+    for i in arr:
+        if i < min:
+            min = i
     return min
 
 def count_even():
     arr=[1,2,3,4,5,6]
     even = []
-    for i in range(len(arr)):
-        if arr[i] % 2 == 0:
-            even.append(arr[i])
+    for i in arr:
+        if i % 2 == 0:
+            even.append(i)
     print(even)       
     return len(even)
 
@@ -44,15 +43,19 @@ def liner_srch(arr, target):
     return -1
 
 def reverse_list(arr):
-    reverse_list = []
-    for i in range(len(arr)-1,-1,-1):
-        reverse_list.append(arr[i])
-    return reverse_list
+   
+    # while left<right:
+    #     arr[left],arr[right] = arr[right],arr[left]
+    #     left,right = left+1,right-1
+    # return arr
+    for i in range(len(arr)//2):
+        arr[i],arr[len(arr)-1-i] = arr[len(arr)-1-i], arr[i]
+    return arr
     
 def count_occurrences(arr, target):
     count = 0
-    for i in range(len(arr)):
-        if arr[i] == target:
+    for i in arr:
+        if i == target:
             count +=1
     return count
 
@@ -65,6 +68,8 @@ def remove_duplicates(arr):
         else:
             i+=1
     return remove_duplicate        
+
+
 
 def second_largest(arr):
     fst_max = max(arr)
@@ -125,5 +130,5 @@ def chr_frequency(word):
 
        
 
-output= count_vovels()
+output= count_occurrences([10,20,4,9,8,8],3)
 print(output)
