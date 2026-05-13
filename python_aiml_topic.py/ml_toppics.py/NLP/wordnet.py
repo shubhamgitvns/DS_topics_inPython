@@ -1,18 +1,35 @@
-
-# Wordset is a english word database which using in NLP 
-# and storing the words meaning, synonyms, antonyms, relations
-
 from nltk.corpus import wordnet as wn
 
-word = "happy"
+def get_synonyms(word):
+    synonyms = set()
 
-synsets = wn.synsets(word)
+    for synset in wn.synsets(word):
+        for lemma in synset.lemmas():
+            name = lemma.name().replace("_", " ")
+            if name.lower() != word.lower():
+                synonyms.add(name)
 
-print("Word:", word)
-print("Number of meanings found:", len(synsets))
+    return sorted(synonyms)
 
-for s in synsets:
-    print("\nSynset:", s.name())
-    print("Definition:", s.definition())
-    print("Examples:", s.examples())
-    print("Lemma names:", s.lemma_names())
+
+def get_antonyms(word):
+    antonyms = set()
+
+    for synset in wn.synsets(word):
+        for lemma in synset.lemmas():
+            for antonym in lemma.antonyms():
+                name = antonym.name().replace("_", " ")
+                antonyms.add(name)
+
+    return sorted(antonyms)
+
+
+word = input("Enter a word: ")
+
+# print("\nSynonyms:")
+# for item in get_synonyms(word):
+#     print("-", item)
+
+print("\nAntonyms:")
+for item in get_antonyms(word):
+    print("-", item)
