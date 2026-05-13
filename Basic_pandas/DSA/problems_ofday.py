@@ -60,15 +60,19 @@ def count_occurrences(arr, target):
     return count
 
 def remove_duplicates(arr):
-    remove_duplicate=[]
-    for i in range(len(arr)):
-        if arr[i] not in remove_duplicate:
-            remove_duplicate.append(arr[i])
-            print(arr[i])
-        else:
-            i+=1
-    return remove_duplicate        
+    # remove_duplicate=[]
+    # for i in arr:
+    #     if i not in remove_duplicate:
+    #         remove_duplicate.append(i)
+    #         print(i)
+    #     else:
+    #         i+=1
+    # return remove_duplicate       
 
+     f={}
+     for i in arr:
+        f[i]=f.get(i,0)+1
+     return f 
 
 
 def second_largest(arr):
@@ -78,6 +82,7 @@ def second_largest(arr):
         if fst_max > i:
             sec_max = i
     return sec_max
+
 
 def is_sorted(arr):
     for i in range(len(arr)-1):
@@ -114,10 +119,6 @@ def count_vovels():
     for t in text:
         if t in vovels:
             count+=1
-    # for i in range(len(text)):
-    #     for j in range(len(vovels)):
-    #        if text[i] == vovels[j]:
-    #         count +=1
     return count
 
 
@@ -130,5 +131,5 @@ def chr_frequency(word):
 
        
 
-output= count_occurrences([10,20,4,9,8,8],3)
+output= remove_duplicates([10,20,4,9,8,8])
 print(output)

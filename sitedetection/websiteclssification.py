@@ -26,9 +26,13 @@ df = pd.DataFrame(data)
 
 # Paragraph
 peragraph = """
-Yesterday I ate dhosha and maggie with tea.
-After dinner I watched sholey and singham movie.
-Tea was very good with machi bhat.
+# Yesterday I ate dhosha and maggie with tea.
+# After dinner I watched sholey and singham movie.
+# Tea was very good with machi bhat.
+"https://foodsite.com/maggie-tea-burger",
+"https://moviesite.com/sholey-singham",
+"https://mixsite.com/pizza-veeru",
+"https://foodworld.com/dhosha-idley",
 """
 
 # Step-1 Lowercase
@@ -112,9 +116,7 @@ else:
 
 # step-8 Show the result in graph
 
-bars = plt.bar(names,total_counts, color = colors)
-
-
+plt.bar(names,total_counts,color =colors)
 plt.title("Website Classification")
 plt.xlabel("Category")
 plt.ylabel("Match Count")
