@@ -40,7 +40,7 @@ def sentence_meaning_score(sentence1, sentence2):
     return score, common
 
 
-s1 = "I want food"
+s1 = "about the Varasnasi"
 s2 = "I want films"
 s3 = "I want sleep"
 s4 = "I want drink"
@@ -49,10 +49,11 @@ s6 = 'what is loop'
 s7 = 'what is for'
 s8 = 'hello'
 s9 = 'what is while'
+s10 = 'i am happy i feal happy'
 
 
 for i in range(5):
-    inputsentence = input("\nEnter a sentence\n").lower().strip()
+    inputsentence = input("\nHello:\n").lower().strip()
     input_words = inputsentence.split()
     score1, c1 = sentence_meaning_score(s1, inputsentence)
     score2, c2 = sentence_meaning_score(s2, inputsentence)
@@ -62,6 +63,7 @@ for i in range(5):
     score6, c6 = sentence_meaning_score(s6,inputsentence)
     for_loop, c7 = sentence_meaning_score(s7,inputsentence)
     while_loop, c9 = sentence_meaning_score(s9,inputsentence)
+    happy, c10 = sentence_meaning_score(s10,inputsentence)
     intro, c8 = sentence_meaning_score(s8,inputsentence)
     
     if "for" in input_words:
@@ -73,15 +75,20 @@ for i in range(5):
         while_loop = 1.0
     else:
         while_loop = 0    
+    if 'loop' in input_words and 'for' not in input_words and 'while' not in input_words:
+        s6 = 1.0
+    else:
+        s6=0
+        
 
 
 
-    max_ch = max(score1,score2,score3,score4,score5,score6,for_loop, while_loop, intro)
-    print(score1,score2,score3,score4,score5,score6,for_loop,intro)
+    max_ch = max(score1,score2,score3,score4,score5,score6,for_loop, while_loop, intro,happy)
+    print(score1,score2,score3,score4,score5,score6,for_loop,intro,happy)
     if max_ch ==0.0:
         print("Not Understand ??")
     elif max_ch == score1:
-        print("Maggie Kha lo")
+        print("Varanasi, also known as Kashi or Banaras, is one of the oldest living cities in the world. It is located on the banks of the sacred Ganges River in the Indian state of Uttar Pradesh.The city is considered the spiritual capital of India and is deeply connected with Hindu culture, history, and traditions.")
         
     elif max_ch == score2:
         print("Movie Dekg lo")
@@ -104,7 +111,9 @@ for i in range(5):
     
     elif max_ch == intro:
 
-        print("\nHello..\nI am Shubham's  basic code lerner AI chatbord\nhow can i help you today??")
+        print("\nHello..\nI am Shubham Your Torrist Guider\nWhere you wisit today??")
+    elif max_ch == happy:
+        print('I Think you are happy')
 
 
 
