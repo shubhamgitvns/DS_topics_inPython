@@ -81,7 +81,8 @@ questions = [
 # Answers
 answers = [
     "Varanasi is one of the oldest cities in India.",
-    "There are revers in varanasi:\nGanga, Varuna, Assi"
+    
+    "There are revers in varanasi:\nGanga, Varuna, Assi",
 
     "Varanasi is the city of temples there are many famous temples.\nKashi Vishwanath\nAnyapurna Temple\nMritunjay Mahadev Temple\nKal Bherva Temple\nSankat Mochan Temple",
 
@@ -96,11 +97,10 @@ answers = [
 
 ]
 
-# Chat loop
-user_input = 'hello'.lower().strip()
-for i in range(len(questions)):
+# Main chatbot function
+def get_bot_response(user_input):
 
-    user_input = input("\nYou: ").lower().strip()
+    user_input = user_input.lower().strip()
 
     scores = []
 
@@ -114,7 +114,7 @@ for i in range(len(questions)):
 
         scores.append(score)
 
-    print("\nScores =", scores)
+    print(scores)
 
     # Highest score
     max_score = max(scores)
@@ -125,8 +125,8 @@ for i in range(len(questions)):
     # Final result
     if max_score == 0 or max_score < 0.5:
 
-        print("\nBot: Not Understand ??")
+        return "Not Understand ??"
 
     else:
 
-        print("\nBot:", answers[best_index])
+        return answers[best_index]
