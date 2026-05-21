@@ -12,7 +12,7 @@ custom_words = {
         "varansi",
         "varanasi"
     ],
-    "temples":[
+    "temples": [
         "mandir",
         "temples",
 
@@ -21,6 +21,8 @@ custom_words = {
 }
 
 # Clean words
+
+
 def clean_words(sentence):
 
     # lowercase
@@ -49,7 +51,6 @@ def clean_words(sentence):
             filtered.append(word)
 
     return filtered
-      
 
 
 # Find synonyms
@@ -113,20 +114,27 @@ questions = [
     "top temples in banaras",
 
     "main temples of kashi",
-##                          ##
+
     "varanasi ganga ghat",
 
     "varansi famous ghats",
 
-    "varanasi holly river",
+
+    "varanasi holly rivers",
 
     "local food",
 
     "varanasi famous snacks",
 
+    "kashi famous sweets",
+
+    "Kashi famous drinks",
+
     "hello",
 
-    "i am happy"
+    "i am happy",
+
+    "i feel boring"
 
 ]
 
@@ -145,17 +153,19 @@ answers = [
     "There are around 84 ghats in Varanasi, and each ghat has its own history, rituals, and atmosphere.\nPeople come to the ghats for:\nHoly Bathing\nPrayer\nMeditation\nYoga\nBoat Riding\nThis the famous ghatsin kashi where the torist mostly visit\nAssi Ghat, Deshashwmag Ghat, Tulsi Ghat, Ganga Mahal, Harishchandra Ghat, Namo Ghat, Lalita Ghat, Manikarnika Ghat.\nWhich ghat you visit??",
     "This are the famous gnnga ghats in varanasi:\n Assi Ghat, Deshashwmag Ghat, Tulsi Ghat.",
 
-    
-    "This are the local food in varanasi:\nSnakes:\nKachori, Samosha, Puri Sabji, Tomato chat, Allu Tikki, Chola Papad\nSweets:\nJalabi, Rabdi,Longlatta, Gulab Jamun, Barfi\n Drinks:\nThandai, Aam Panna, Lassi, Sugarcan Juse, Badam Dudh, Malio",
+    "These revers in varanasi:\nGanga, Varuna, Assi",
 
-   "These revers in varanasi:\nGanga, Varuna, Assi",
+    "Kashi is famous for its traditional street food culture,tradition including:\nFood:\n Dal Bati Chokha, Dal Chawal Bhujiya Papad Achar\nSnakes:\nKachori, Samosha, Puri Sabji, Tomato chat, Allu Tikki,Panir Tikki, Chola Papad\nSweets:\nJalabi, Rabdi, Rabdie with dry fruits, Mallai, Longlatta, Gulab Jamun, Barfi\nDrinks:\nThandai, Aam Panna, Lassi, Sugarcan Juse, Badam Dudh(Winter Special), Malio(Winter Special)",
 
-    
-     "List of Famous Snakes:\nKachori, Samosha, Puri Sabji, Tomato chat, Allu Tikki, Chola Papad",
-   
+    "Famosh Snacks in Varanasi/Kashi:\nSnacks:\nKachori, Samosha, Puri Sabji, Tomato chat, Allu Tikki, Panir Tikki, Chola Papad",
+    "Famous Sweets in kashi:\nSweets:\nJalabi, Rabdi, Rabdie with dry fruits, Mallai, Longlatta, Gulab Jamun, Barfi",
+    "Famouus Drinks in kashi:\nDrinks:\nLassi, Aam Panna, sugarcan Juice, Thandai, Badam Dudh(Winter Special), Malio(Winter Special)",
+
     "Hello I am your AI Guide.\nWhich place you visit in varanasi",
 
-    "I think you are happy."
+    "I think you are happy.",
+
+    "Ere guru banaras aial our bor ho jaiba hmre rehte to raja ka khak banaras aaila\nawa tohe banaras ke rang dekhai hlka gulabi hlka nila tohar mood bnai tan man tohar astha me dubai.\nawa raja tohe bnaras ghumai\nSbse pehle chauck ja weha sahi pan bhandar se mst metha bnarasi pan kha maghain patta wala raja mood phle thik kera\nagar samay sam ke hw 4-5 ke bich me bina time west kiye baba thandai wale se thandai pia 1 glass our bina soche samjhe noka bihar kere dashaswamagy ghat ja or 84 ghat ka darshan kera.\nHidden place in kashi:\n Temples: Pahupati nath mandir, chandra kup, 12 jyotiling mandir darshan, 9 devi mandir, 84 yoni mandir"
 
 ]
 
@@ -176,9 +186,9 @@ for i in range(len(questions)):
         )
 
         scores.append(score)
-    print(expanded_sentence_words(user_input))    
+    # print(expanded_sentence_words(user_input))
 
-    print("\nScores =", scores)
+    # print("\nScores =", scores)
 
     # Highest score
     max_score = max(scores)
