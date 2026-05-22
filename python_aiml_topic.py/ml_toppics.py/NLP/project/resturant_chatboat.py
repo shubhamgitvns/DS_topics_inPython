@@ -1,6 +1,94 @@
 from nltk.corpus import wordnet as wn
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 import re
+import datetime
+
+lemmatizer = WordNetLemmatizer()
+
+
+food_database = [
+
+    "tea",
+    "coffee",
+    "pizza",
+    "burger",
+    "icecream",
+    "cold drink",
+    "maggie",
+    "samosha",
+    "kachori",
+    "lassi",
+    "cake",
+    "sandwich",
+    "pasta",
+    "momo",
+    "biryani",
+    "stream",
+    "ice cream"
+
+]
+time_based_special = {
+
+    "morning": {
+
+        "greeting": "Good Morning ☀️",
+
+        "special": [
+            "special tea",
+            "poha"
+        ],
+
+        "message": "Would You Like Breakfast ?"
+    },
+
+
+
+    "afternoon": {
+
+        "greeting": "Good Afternoon 🌤️",
+
+        "special": [
+            "kadhi chawal",
+            "lassi"
+        ],
+
+        "message": "Would You Like Lunch ?"
+    },
+
+
+
+    "evening": {
+
+        "greeting": "Good Evening 🌙",
+
+        "special": [
+            "coffee",
+            "samosha"
+        ],
+
+        "message": "Would You Like Some Snacks ?"
+    }
+}
+
+current_hour = datetime.datetime.now().hour
+
+
+if current_hour < 12:
+
+    current_time = "morning"
+
+elif current_hour < 16:
+
+    current_time = "afternoon"
+
+else:
+
+    current_time = "evening"
+
+
+current_data = time_based_special[current_time]
+
 
 menu = {
 
@@ -10,7 +98,7 @@ menu = {
     "maggie": 100,
     'gulabjamun': 15,
     'dahi bada': 18,
-    'samosh': 15,
+    'samosha': 15,
     'kachori': 25,
     'allu pakode': 90,
     'pannir pakode': 100,
@@ -18,6 +106,11 @@ menu = {
     'chach':  40,
     'pepsi': 25,
     'cola': 25,
+
+     'dall chawal full plate': 150,
+    'dall chawal half plate': 100,
+    'kadi chawal full plate': 180,
+    'kadi chawal half plate': 120
 }
 
 sweet = {
@@ -29,7 +122,7 @@ sweet = {
 
 snacks = {
 
-    'samosh': 15,
+    'samosha': 15,
     'kachori': 25,
     'allu pakode': 90,
     'pannir pakode': 100
@@ -40,6 +133,13 @@ drinks = {
     'chach':  40,
     'pepsi': 25,
     'cola': 25
+}
+
+lunchs = {
+    'dall chawal full plate': 150,
+    'dall chawal half plate': 100,
+    'kadi chawal full plate': 180,
+    'kadi chawal half plate': 120
 }
 # Create menu text automatically
 menu_text = "\n".join(
@@ -56,6 +156,13 @@ snacks_text = '\n'.join(
     [f"{item} - {price}rs" for item, price in snacks.items()]
 )
 
+lunchs_text = '\n'.join(
+    [f"{item} - {price}rs" for item, price in lunchs.items()]
+)
+
+def normalize_word(word):
+
+    return lemmatizer.lemmatize(word)
 
 def clean_words(sentence):
 
@@ -67,6 +174,10 @@ def clean_words(sentence):
 
     # stopwords
     stop_words = set(stopwords.words("english"))
+
+    # this word not remove
+    stop_words.discard("no")
+    stop_words.discard("not")
 
     filtered = []
     for word in words:
@@ -131,10 +242,12 @@ questions = [
     "i want sweets dish",
     " i want drinks",
     "i want snacks",
-
+    "i want lunchs",
+    "no",
+    "yes",
     "hello"
 
-  
+
 
 ]
 
@@ -143,22 +256,38 @@ questions = [
 answers = [
     f"Our Menu:\n{menu_text}\n\nPlease Write Your Order Sir",
     f"Our Sweet dish:\n{sweets_text}\n\nPlease Write Your Order Sir",
-    f"Our Sweet dish:\n{drinks_text}\n\nPlease Write Your Order Sir",
-    f"Our Sweet dish:\n{snacks_text}\n\nPlease Write Your Order Sir",
+    f"Our Drinks:\n{drinks_text}\n\nPlease Write Your Order Sir",
+    f"Our Snacks dish:\n{snacks_text}\n\nPlease Write Your Order Sir",
+    f"Our lunch dish:\n{lunchs_text}\n\nPlease Write Your Order Sir",
+    "\nNo problem,\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch\n\nIf you say yes i suggest you somthing special dish for you ??",
+    "\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch",
+
 
     "Hello I am your AI assistant.\nWhich dish you want ??"
 
-  
+
 ]
 
 # Chat loop
 user_input = 'hello'.lower().strip()
-print("\nWelcome to our resturent\nHello sir i am ai assistent\nwhich type food you want ??")
-print("Types:")
-print("Menue\nSnacks\nSweets\nDrinks")
+print("\nWelcome to our resturent")
+print("\n" + current_data["greeting"])
+
+print("\nToday's Special:\n")
+
+for item in current_data["special"]:
+
+    print(item.title())
+
+print("\n" + current_data["message"])
+all_orders = []
+
+grand_total = 0
+
 while True:
 
     user_input = input("\nYou: ").lower().strip()
+    print(synonyms_of(user_input))
 
     # EXIT
     if user_input == "exit":
@@ -166,43 +295,83 @@ while True:
         print("\nBot: Thank You Visit Again")
         break
 
+
+    food_detected = False
+
+    for food in food_database:
+        normalize_comp_word = normalize_word(food)
+
+        if normalize_comp_word in normalize_word(user_input):
+
+            food_detected = True
+            break
+
+ 
+ 
+
     # ================= ORDER CHECK =================
 
-    order_found = []
+    current_order = []
 
-    total_bill = 0
+    current_bill = 0
 
     for item, price in menu.items():
 
         if item in user_input:
 
-            order_found.append(item)
+            current_order.append(item)
+            all_orders.append(item)
 
-            total_bill += price
+            current_bill += price
+            grand_total += price
+
+            # total_bill += price
 
     # ================= BILL =================
 
-    if len(order_found) > 0:
+    if len(current_order) > 0:
 
         print("\nBot: Your Order Bill")
 
         print("----------------------")
 
-        for item in order_found:
+        for item in current_order:
 
             print(item, "=", menu[item], "rs")
 
         print("----------------------")
 
-        print("Total Bill =", total_bill, "rs")
+        print("Total Bill =", current_bill, "rs")
+
+         # ================= ALL ORDER HISTORY =================
+
+        print("\n📦 All Orders")
+        print("----------------------")
+
+        for item in all_orders:
+
+            print(item, "=", menu[item], "rs")
+
+        print("----------------------")
+
+        print("Grand Total =", grand_total, "rs")
 
     # ================= NOT AVAILABLE =================
 
-    elif any(word in user_input for word in clean_words(menu_text)):
+
+    # elif any(word in user_input for word in clean_words(menu_text)):
+       
+    #     print(
+    #         "\nBot: Not Available This Order\nPlease Write Again Your Order"
+    #     )
+    elif food_detected:
 
         print(
-            "\nBot: Not Available This Order\nPlease Write Again Your Order"
+            "\nBot: Sorry 😔"
+            "\nThis Food Is Not Available"
+            "\nPlese order in minue"
         )
+        continue
 
     # ================= CHATBOT =================
 
@@ -236,4 +405,4 @@ while True:
 
     else:
 
-        print("\nBot:", answers[best_index])
+        print("\nBot:\n", answers[best_index])
