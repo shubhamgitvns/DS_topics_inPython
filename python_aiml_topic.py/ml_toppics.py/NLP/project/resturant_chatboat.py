@@ -119,6 +119,15 @@ sweet = {
     'dahi bada': 18
 }
 
+refress ={
+    'tea': 10,
+    'lemon tea': 15,
+    'ice tea': 25,
+    'special tea': 30,
+    'lemmon juice': 20,
+    'lassi':  50
+}
+
 
 snacks = {
 
@@ -141,6 +150,17 @@ lunchs = {
     'kadi chawal full plate': 180,
     'kadi chawal half plate': 120
 }
+
+# ================= CATEGORY DATA =================
+
+category_data = {
+
+    "menu": menu,
+    "sweets": sweet,
+    "snacks": snacks,
+    "drinks": drinks,
+    "lunch": lunchs
+}
 # Create menu text automatically
 menu_text = "\n".join(
     [f"{item} - {price}rs" for item, price in menu.items()]
@@ -158,6 +178,9 @@ snacks_text = '\n'.join(
 
 lunchs_text = '\n'.join(
     [f"{item} - {price}rs" for item, price in lunchs.items()]
+)
+refress_text = '\n'.join(
+    [f"{item} - {price}rs" for item, price in refress.items()]
 )
 
 def normalize_word(word):
@@ -239,12 +262,17 @@ def sentence_meaning_score(sentence1, sentence2):
 
 questions = [
     "menue please",
-    "i want sweets dish",
-    " i want drinks",
-    "i want snacks",
-    "i want lunchs",
+    # "i want sweets dish",
+    # "i want drinks",
+    # "i want snacks",
+    # "i want lunchs",
     "no",
     "yes",
+    "suggest me",
+    "spicy",
+    "sweet",
+    # "light",
+    "refresssing"
     "hello"
 
 
@@ -255,12 +283,16 @@ questions = [
 # Answers
 answers = [
     f"Our Menu:\n{menu_text}\n\nPlease Write Your Order Sir",
+    # f"Our Sweet dish:\n{sweets_text}\n\nPlease Write Your Order Sir",
+    # f"Our Drinks:\n{drinks_text}\n\nPlease Write Your Order Sir",
+    # f"Our Snacks dish:\n{snacks_text}\n\nPlease Write Your Order Sir",
+    # f"Our lunch dish:\n{lunchs_text}\n\nPlease Write Your Order Sir",
+    "\nNo problem,\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch\n\nIf you say suggest i suggest you somthing special dish for you ??\n",
+    "\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch\n",
+    "\nWhich type food you want??\nspicy, sweet, light, refressing",
+    f"Our Spicy dish:\n{snacks_text}\n\nPlease Write Your Order Sir",
     f"Our Sweet dish:\n{sweets_text}\n\nPlease Write Your Order Sir",
-    f"Our Drinks:\n{drinks_text}\n\nPlease Write Your Order Sir",
-    f"Our Snacks dish:\n{snacks_text}\n\nPlease Write Your Order Sir",
-    f"Our lunch dish:\n{lunchs_text}\n\nPlease Write Your Order Sir",
-    "\nNo problem,\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch\n\nIf you say yes i suggest you somthing special dish for you ??",
-    "\nHello sir i am ai assistent\nwhich type food you want ??\n\nTypes:\nSnacks\nSweets\nDrinks\nlunch",
+    f"Our refressing dish:\n{refress_text}\n\nPlease Write Your Order Sir",
 
 
     "Hello I am your AI assistant.\nWhich dish you want ??"
@@ -268,9 +300,12 @@ answers = [
 
 ]
 
-# Chat loop
-user_input = 'hello'.lower().strip()
+
+
+# ================= START =================
+
 print("\nWelcome to our resturent")
+
 print("\n" + current_data["greeting"])
 
 print("\nToday's Special:\n")
@@ -280,25 +315,129 @@ for item in current_data["special"]:
     print(item.title())
 
 print("\n" + current_data["message"])
+
+# ================= STORAGE =================
+
 all_orders = []
 
 grand_total = 0
 
+selected_category = None
+
+# ================= CHAT LOOP =================
+
 while True:
 
     user_input = input("\nYou: ").lower().strip()
-    print(synonyms_of(user_input))
 
-    # EXIT
+    # ================= EXIT =================
+
     if user_input == "exit":
 
         print("\nBot: Thank You Visit Again")
         break
 
+    # ======================= CATEGORY SELECT =============================================
+
+    if user_input in category_data:
+
+        selected_category = user_input
+
+        print("\nBot:\n")
+
+        for item, price in category_data[selected_category].items():
+
+            print(f"{item} = {price}rs")
+
+        print("\nPlease Enter Item Name:")
+
+        continue
+
+    # =============== ITEM ORDER FLOW  ===================================
+
+    if selected_category is not None:
+
+        selected_menu = category_data[selected_category]
+
+        if user_input in selected_menu:
+
+            quantity = int(
+                input("\nEnter Quantity: ")
+            )
+
+            item_total = (
+                selected_menu[user_input] * quantity
+            )
+
+            grand_total += item_total
+
+            all_orders.append({
+
+                "item": user_input,
+                "quantity": quantity,
+                "total": item_total
+
+            })
+
+            print(
+                f"\n{quantity} {user_input.title()} Added Successfully ✅"
+            )
+
+            print(
+                f"\nCurrent Total = {grand_total}rs"
+            )
+
+            print("""
+
+Any More Items Sir ?
+
+Type:
+yes → add more items
+done → final bill
+exit → close chatbot
+
+""")
+
+            continue
+
+    # =========================================================
+    # FINAL BILL
+    # =========================================================
+
+    if user_input == "done":
+
+        print("\n🧾 FINAL BILL")
+
+        print("----------------------")
+
+        for order in all_orders:
+
+            print(
+                f"{order['item']} x {order['quantity']} = {order['total']}rs"
+            )
+
+        print("----------------------")
+
+        print(f"Grand Total = {grand_total}rs")
+
+        print("""
+
+Type:
+yes → add more items
+exit → close chatbot
+
+""")
+
+        continue
+
+    # =========================================================
+    # FOOD DETECT
+    # =========================================================
 
     food_detected = False
 
     for food in food_database:
+
         normalize_comp_word = normalize_word(food)
 
         if normalize_comp_word in normalize_word(user_input):
@@ -306,80 +445,26 @@ while True:
             food_detected = True
             break
 
- 
- 
+    # =========================================================
+    # FOOD NOT AVAILABLE
+    # =========================================================
 
-    # ================= ORDER CHECK =================
-
-    current_order = []
-
-    current_bill = 0
-
-    for item, price in menu.items():
-
-        if item in user_input:
-
-            current_order.append(item)
-            all_orders.append(item)
-
-            current_bill += price
-            grand_total += price
-
-            # total_bill += price
-
-    # ================= BILL =================
-
-    if len(current_order) > 0:
-
-        print("\nBot: Your Order Bill")
-
-        print("----------------------")
-
-        for item in current_order:
-
-            print(item, "=", menu[item], "rs")
-
-        print("----------------------")
-
-        print("Total Bill =", current_bill, "rs")
-
-         # ================= ALL ORDER HISTORY =================
-
-        print("\n📦 All Orders")
-        print("----------------------")
-
-        for item in all_orders:
-
-            print(item, "=", menu[item], "rs")
-
-        print("----------------------")
-
-        print("Grand Total =", grand_total, "rs")
-
-    # ================= NOT AVAILABLE =================
-
-
-    # elif any(word in user_input for word in clean_words(menu_text)):
-       
-    #     print(
-    #         "\nBot: Not Available This Order\nPlease Write Again Your Order"
-    #     )
-    elif food_detected:
+    if food_detected:
 
         print(
             "\nBot: Sorry 😔"
             "\nThis Food Is Not Available"
-            "\nPlese order in minue"
+            "\nPlease Order From Menu"
         )
+
         continue
 
-    # ================= CHATBOT =================
+    # =========================================================
+    # NLP CHATBOT
+    # =========================================================
 
-    else:
+    scores = []
 
-        scores = []
-
-    # Compare all questions
     for sentence in questions:
 
         score, common = sentence_meaning_score(
@@ -388,17 +473,11 @@ while True:
         )
 
         scores.append(score)
-    # print(expanded_sentence_words(user_input))
 
-    # print("\nScores =", scores)
-
-    # Highest score
     max_score = max(scores)
 
-    # Best matching index
     best_index = scores.index(max_score)
 
-    # Final result
     if max_score == 0 or max_score < 0.2:
 
         print("\nBot: Not Understand ??")

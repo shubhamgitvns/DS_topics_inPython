@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Simple ChatBot UI</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial;
+    }
+
+    body{
+
+      background:#ece5dd;
+
+      height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    /* ================= CHAT CONTAINER ================= */
+
+    .chat-container{
+
+      width:400px;
+      height:90vh;
+
+      background:white;
+
+      border-radius:10px;
+
+      overflow:hidden;
+
+      display:flex;
+      flex-direction:column;
+
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    }
+
+    /* ================= HEADER ================= */
+
+    .chat-header{
+
+      background:#075e54;
+
+      color:white;
+
+      padding:15px;
+
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    /* ================= CHAT BODY ================= */
+
+    .chat-body{
+
+      flex:1;
+
+      padding:15px;
+
+      overflow-y:auto;
+
+      display:flex;
+      flex-direction:column;
+
+      gap:10px;
+
+      background:#efeae2;
+    }
+
+    /* ================= MESSAGE ================= */
+
+    .message{
+
+      padding:10px 15px;
+
+      border-radius:10px;
+
+      max-width:70%;
+
+      word-wrap:break-word;
+    }
+
+    /* USER MESSAGE */
+
+    .user{
+
+      background:#dcf8c6;
+
+      align-self:flex-end;
+    }
+
+    /* BOT MESSAGE */
+
+    .bot{
+
+      background:white;
+
+      align-self:flex-start;
+    }
+
+    /* ================= INPUT AREA ================= */
+
+    .chat-input{
+
+      display:flex;
+
+      padding:10px;
+
+      background:#f0f0f0;
+
+      gap:10px;
+    }
+
+    .chat-input input{
+
+      flex:1;
+
+      padding:12px;
+
+      border:none;
+
+      border-radius:20px;
+
+      outline:none;
+
+      font-size:16px;
+    }
+
+    .chat-input button{
+
+      padding:12px 20px;
+
+      border:none;
+
+      background:#075e54;
+
+      color:white;
+
+      border-radius:20px;
+
+      cursor:pointer;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ================= CHAT CONTAINER ================= -->
+
+  <div class="chat-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="chat-header">
+
+      AI ChatBot
+
+    </div>
+
+    <!-- ================= CHAT BODY ================= -->
+
+    <div class="chat-body" id="chatBody">
+
+      <div class="message bot">
+        Hello
+      </div>
+
+    </div>
+
+    <!-- ================= INPUT ================= -->
+
+    <div class="chat-input">
+
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Type a message"
+      >
+
+      <button onclick="sendMessage()">
+        Send
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+
+  <script>
+
+    function sendMessage(){
+
+      let input =
+      document.getElementById("messageInput");
+
+      let text = input.value;
+
+      if(text.trim() === ""){
+
+        return;
+      }
+
+      let chatBody =
+      document.getElementById("chatBody");
+
+      // USER MESSAGE
+
+      let userMessage =
+      document.createElement("div");
+
+      userMessage.classList.add(
+        "message",
+        "user"
+      );
+
+      userMessage.innerText = text;
+
+      chatBody.appendChild(userMessage);
+
+      // CLEAR INPUT
+
+      input.value = "";
+
+      // AUTO SCROLL
+
+      chatBody.scrollTop =
+      chatBody.scrollHeight;
+    }
+
+  </script>
+
+</body>
+
+</html>
