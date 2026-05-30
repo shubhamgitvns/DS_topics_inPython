@@ -30,7 +30,6 @@ tokenize_data = data.split()
 
 
 #  remove stop words
-
 stop_word = stopwords.words('english')
 filter_data = []
 

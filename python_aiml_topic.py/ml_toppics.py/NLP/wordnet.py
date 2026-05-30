@@ -1,5 +1,7 @@
 from nltk.corpus import wordnet as wn
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
 import re
 
 # Custom same meaning words
@@ -28,8 +30,13 @@ def clean_words(sentence):
     # lowercase
     sentence = sentence.lower()
 
-    # tokenize
+    # find the words remove numbers and punctuation and tokenize
     words = re.findall(r"[a-z]+", sentence)
+
+
+
+   
+
 
     # stopwords
     stop_words = set(stopwords.words("english"))
@@ -49,8 +56,15 @@ def clean_words(sentence):
                     word = main_word
 
             filtered.append(word)
+    
 
-    return filtered
+    ps = PorterStemmer()
+    return [ps.stem(word) for word in filtered]
+
+
+    # filtered = ps.stem(word)        
+
+    # return filtered
 
 
 # Find synonyms
@@ -118,17 +132,17 @@ data = [
     },
 
     {
-        "question": "varanasi temples list",
+        "question": "varanasi temple list",
         "answer": "Varanasi is the city of temples there are many famous temples."
     },
 
     {
-        "question": "top temples in banaras",
+        "question": "top temple in banaras",
         "answer": "Varanasi is the city of temples there are many famous temples."
     },
 
     {
-        "question": "main temples of kashi",
+        "question": "main temple of kashi",
         "answer": "Varanasi is the city of temples there are many famous temples."
     },
 
@@ -138,12 +152,12 @@ data = [
     },
 
     {
-        "question": "varansi famous ghats",
+        "question": "varansi famous ghat",
         "answer": "This are the famous ganga ghats in varanasi."
     },
 
     {
-        "question": "varanasi holly rivers",
+        "question": "varanasi holly river",
         "answer": "These rivers in varanasi: Ganga, Varuna, Assi"
     },
 
@@ -158,12 +172,12 @@ data = [
     },
 
     {
-        "question": "kashi famous sweets",
+        "question": "kashi famous sweet",
         "answer": "Famous sweets in kashi: Jalebi, Rabdi."
     },
 
     {
-        "question": "kashi famous drinks",
+        "question": "kashi famous drink",
         "answer": "Famous drinks in kashi: Lassi, Thandai."
     },
 
@@ -205,8 +219,10 @@ while True:
         scores.append(score)
     # print(expanded_sentence_words(user_input))
 
-    # print("\nScores =", scores)
-
+    print('undersytanding')
+    print(sentence)
+    print("\nScores =", scores)
+   
     # Highest score
     max_score = max(scores)
 
