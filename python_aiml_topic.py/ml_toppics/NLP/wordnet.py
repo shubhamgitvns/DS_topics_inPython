@@ -207,6 +207,7 @@ while True:
 
     scores = []
 
+
     # Compare all questions
     for item in data:
         sentence = item['question']
