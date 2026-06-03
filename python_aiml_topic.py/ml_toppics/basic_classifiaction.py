@@ -44,11 +44,20 @@ fullmarksrange=[x for x in range(101)]
 fullresultrange=[model.predict([[x]])[0] for x in fullmarksrange]
 # print(fullresultrange)
 
-plt.plot(marks,results, color="red")
-plt.scatter(marks,results, color="blue", marker='o')
-plt.grid()
-plt.title("Students marks")
-plt.xlabel("Marks of Students")
-plt.ylabel("Devision of Students")
-plt.legend(["Actual Division","Actual Division"])
-plt.show()
+ # show the graph using grid
+# plt.plot(fullmarksrange,fullresultrange, color="green")
+# plt.scatter(marks,results,color='brown',marker='o')
+# plt.grid()
+# plt.title("Students marks")
+# plt.xlabel("Marks of Students")
+# plt.ylabel("Devision of Students")
+# plt.legend(["Actual Division","Actual Division"])
+# plt.show()
+
+for i in range(80):
+  value = [[i]]
+  result = model.predict(value)
+  probability = model.predict_proba(value)
+  print("[Marks ",value[0][0], " result is ", divisions(result), " prob is ", probability[0],"]",end=",")
+  if i % 10 ==0 and i>0:
+    print()
