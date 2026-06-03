@@ -42,5 +42,13 @@ model = classifier.fit(marks, results)
 
 fullmarksrange=[x for x in range(101)]
 fullresultrange=[model.predict([[x]])[0] for x in fullmarksrange]
-print(fullresultrange)
+# print(fullresultrange)
 
+plt.plot(marks,results, color="red")
+plt.scatter(marks,results, color="blue", marker='o')
+plt.grid()
+plt.title("Students marks")
+plt.xlabel("Marks of Students")
+plt.ylabel("Devision of Students")
+plt.legend(["Actual Division","Actual Division"])
+plt.show()
