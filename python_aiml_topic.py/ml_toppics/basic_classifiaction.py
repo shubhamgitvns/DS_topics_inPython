@@ -13,7 +13,7 @@ def divisions(n):
   return "First Devisison"
 
 def classifications(n):
-  # Less than 40 is fail and the numeric code is 2. 
+  # Less than 40 is fail and the numeric code is 0. 
 # Pass numeric code is 1
   if n<40:
     return 0
@@ -33,3 +33,14 @@ results=[classifications(x) for x in inputmarks]#Calculated
 textresults=[divisions(x) for x in results]# Print results in words
 
 print(inputmarks, results, textresults)
+
+# Create the desicion tree object or model
+classifier = tree.DecisionTreeClassifier()
+
+# train the model by using input data
+model = classifier.fit(marks, results)
+
+fullmarksrange=[x for x in range(101)]
+fullresultrange=[model.predict([[x]])[0] for x in fullmarksrange]
+print(fullresultrange)
+
