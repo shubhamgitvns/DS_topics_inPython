@@ -2,62 +2,68 @@ from sklearn import tree
 import matplotlib.pyplot as plt
 
 #Functions for pass and fail only
-def divisions(n):
+def result_in_text(n):
   # Convert numeric division code to text
   if n==0:
-    return "fail"
-  if n==3:
-    return "Third Devision"
+
+    return "Draw"
+  
   if n ==2:
-    return "Second Devision"
-  return "First Devisison"
+
+    return "Team 2 win"
+  
+  return "Team 1 win"
 
 def classifications(n):
+   
   # Less than 40 is fail and the numeric code is 0. 
 # Pass numeric code is 1
-  if n<40:
-    return 0
-  if n<50:
-    return 3
-  if n<60:
+
+
+ if n > 0:
+    return 1
+ elif n<0:
     return 2
-  return 1
+ else:
+    return 0
 
-inputmarks=[50,45,66,7,89,21,39,40,89]
-inputmarks.sort()
-marks=[[x] for x in inputmarks]#Classification needs input as a 2d array
+matchscore=[
+   [180 - 180],
+    [200-170],
+    [150-160],
+    [250-210],
+    [175-175],
+    [300-280],
+    [110-130],
+    [220-180]
+    
+  ]
 
-#Use one of the following three
-results=[classifications(x) for x in inputmarks]#Calculated
+matchs = matchscore 
 
-textresults=[divisions(x) for x in results]# Print results in words
+results = [
+    classifications(x[0]) for x in matchscore
+]
 
-print(inputmarks, results, textresults)
+final_result =[result_in_text(x) for x in results]
+
+print("teams score= ",matchs),
+print("teams result= ",results),
+print("final result= ",final_result)
+
 
 # Create the desicion tree object or model
 classifier = tree.DecisionTreeClassifier()
 
 # train the model by using input data
-model = classifier.fit(marks, results)
 
-fullmarksrange=[x for x in range(101)]
-fullresultrange=[model.predict([[x]])[0] for x in fullmarksrange]
-# print(fullresultrange)
+model = classifier.fit(matchs, results)
 
- # show the graph using grid
-# plt.plot(fullmarksrange,fullresultrange, color="green")
-# plt.scatter(marks,results,color='brown',marker='o')
-# plt.grid()
-# plt.title("Students marks")
-# plt.xlabel("Marks of Students")
-# plt.ylabel("Devision of Students")
-# plt.legend(["Actual Division","Actual Division"])
-# plt.show()
+prediction = model.predict(
+   [
+     [140-120]
+     ]
+)
+print("Prediction =", prediction[0])
 
-for i in range(80):
-  value = [[i]]
-  result = model.predict(value)
-  probability = model.predict_proba(value)
-  print("[Marks ",value[0][0], " result is ", divisions(result), " prob is ", probability[0],"]",end=",")
-  if i % 10 ==0 and i>0:
-    print()
+print("Result =", result_in_text(prediction[0]))
