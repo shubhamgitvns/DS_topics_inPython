@@ -59,11 +59,8 @@ classifier = tree.DecisionTreeClassifier()
 
 model = classifier.fit(matchs, results)
 
-prediction = model.predict(
-   [
-     [140-120]
-     ]
-)
+prediction = model.predict([[140-145]])
+
 print("Prediction =", prediction[0])
 
 print("Result =", result_in_text(prediction[0]))
