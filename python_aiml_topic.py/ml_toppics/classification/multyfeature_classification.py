@@ -1,4 +1,5 @@
 import pandas
+import sys
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 phy=[40,40,40,39]
@@ -21,13 +22,29 @@ df['STATUS']= df['STATUS'].map(numbertoresult)
 
 features = ['PHY', 'CHEM', 'MTH']
 
-x = df[features]
+X = df[features]
 y = df['RESULT']
 
 # initlize the decisiontree object
 dtree = DecisionTreeClassifier()
 
 # fit the data on tree
-dtree = dtree.fit(x,y)
-print(dtree)
+dtree = dtree.fit(X,y)
 
+
+physics=[]
+chemistry=[]
+maths=[]
+results=[]
+marks={"PHY":[55],"CHEM":[39],"MTH":[55]}
+examplemarks=pandas.DataFrame(marks)
+print("Marks",examplemarks)
+result=dtree.predict(examplemarks)
+df=pandas.DataFrame({"RESULT":result})
+df['TEXTRESULT'] = df['RESULT'].map(numbertoresult)
+print(df['TEXTRESULT'][0])
+physics.append(marks["PHY"][0])
+chemistry.append(marks["CHEM"][0])
+maths.append(marks["MTH"][0])
+results.append(df["RESULT"][0])
+print(maths)
