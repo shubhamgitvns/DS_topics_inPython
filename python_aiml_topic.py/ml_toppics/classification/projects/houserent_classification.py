@@ -16,8 +16,5 @@ df = pd.DataFrame(
 df['Price']= housing.target
 
 # descrive the data or understand the datsets 
+df=df.drop(1)
 print(df.head())
-print(df.info)
-print(df.describe())
-print(df.isnull().sum())
-
