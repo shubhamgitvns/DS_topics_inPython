@@ -19,6 +19,7 @@ df['Price']= housing.target
 
 # drop the unnecessory data
 df = df.drop(1)
+print(df.head())
 
 # read the feature and target data
 X = df.drop(['Price', 'Latitude', 'Longitude'], axis=1)
@@ -50,14 +51,15 @@ population = float(input("Population: "))
 avg_occupancy = float(input("Average Occupancy: "))
 
 # Predict
-new_house = [[
-    income,
-    house_age,
-    avg_rooms,
-    avg_bedrooms,
-    population,
-    avg_occupancy
-]]
+new_house = pd.DataFrame({
+    'MedInc': [income],
+    'HouseAge': [house_age],
+    'AveRooms': [avg_rooms],
+    'AveBedrms': [avg_bedrooms],
+    'Population': [population],
+    'AveOccup': [avg_occupancy]
+})
+
 
 # predict the data
 predicted_price = model.predict(new_house)
@@ -66,6 +68,3 @@ print("\nPredicted House Price:")
 print(predicted_price[0])
 
 
-# predictions = dtree.predict(X_test)
-
-# print(predictions[:5])
